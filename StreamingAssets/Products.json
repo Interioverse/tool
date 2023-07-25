@@ -4,11 +4,11 @@
       "id": 194490359,
       "numberOfComponentsFound": 1,
       "furnitureCatValue": 1,
-      "productName": "A",
-      "designerName": "B",
+      "productName": "First",
+      "designerName": "first",
       "furnitureCategory": "Cot",
-      "furnitureDetails": "A",
-      "price": 500,
+      "furnitureDetails": "First",
+      "price": 500.0,
       "wallDesign": "Wall design 1",
       "components": [
         {
@@ -92,7 +92,8 @@
             }
           ]
         }
-      ]
+      ],
+      "isApproved": 1
     },
     {
       "id": 108240415,
@@ -125,7 +126,8 @@
           "zIndex": 2,
           "smMaterialProperties": []
         }
-      ]
+      ],
+      "isApproved": 1
     },
     {
       "id": 729585185,
@@ -231,7 +233,8 @@
             }
           ]
         }
-      ]
+      ],
+      "isApproved": 1
     }
   ]
 }
