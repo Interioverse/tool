@@ -235,6 +235,40 @@
         }
       ],
       "isApproved": 1
+    },
+    {
+      "id": 56611632,
+      "numberOfComponentsFound": 1,
+      "furnitureCatValue": 1,
+      "productName": "Test",
+      "designerName": "Test",
+      "furnitureCategory": "Cot",
+      "furnitureDetails": "Test",
+      "price": 500,
+      "wallDesign": "Wall design 12",
+      "components": [
+        {
+          "positionValue": {
+            "x": -0.02617072,
+            "y": 0.5,
+            "z": -0.03782055
+          },
+          "rotationValues": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "scaleValues": {
+            "x": 1,
+            "y": 1,
+            "z": 0.016
+          },
+          "sunmica": 0,
+          "zIndex": 2,
+          "smMaterialProperties": []
+        }
+      ],
+      "isApproved": 1
     }
   ]
 }
