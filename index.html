@@ -55,6 +55,35 @@
         updateBannerVisibility();
       }
 
+      function getPlatformName() {
+        var platform = navigator.platform.toLowerCase();
+
+        if (platform.indexOf('win') !== -1) {
+            return 'Windows';
+        } else if (platform.indexOf('mac') !== -1) {
+            return 'Mac';
+        } else if (platform.indexOf('linux') !== -1) {
+            return 'Linux';
+        } else if (platform.indexOf('android') !== -1) {
+            return 'Android';
+        } else if (platform.indexOf('iphone') !== -1 || platform.indexOf('ipad') !== -1 || platform.indexOf('ipod') !== -1) {
+            return 'iOS';
+        } else {
+            return 'Unknown';
+        }
+      }
+
+      function CallUnityFunction(unityInstance, platformName) {
+        if (typeof unityInstance !== 'undefined') {
+            // Check if the unityInstance is defined (Unity is loaded)
+
+            // Call the Unity function using Unity's SendMessage function
+            unityInstance.SendMessage('Project Manager', 'DetectThePlatForm', platformName);
+        } else {
+            console.error('Unity is not yet loaded.');
+        }
+      }
+
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/Build.loader.js";
       var config = {
@@ -109,6 +138,10 @@
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
           };
+
+          var platformName = getPlatformName();
+          console.log('Platform: ' + platformName);
+          CallUnityFunction(unityInstance, platformName);
         }).catch((message) => {
           alert(message);
         });
