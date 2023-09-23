@@ -55,30 +55,15 @@
         updateBannerVisibility();
       }
 
-      function getPlatformName() {
-        var platform = navigator.platform.toLowerCase();
-
-        if (platform.indexOf('win') !== -1) {
-            return 'Windows';
-        } else if (platform.indexOf('mac') !== -1) {
-            return 'Mac';
-        } else if (platform.indexOf('linux') !== -1) {
-            return 'Linux';
-        } else if (platform.indexOf('android') !== -1) {
-            return 'Android';
-        } else if (platform.indexOf('iphone') !== -1 || platform.indexOf('ipad') !== -1 || platform.indexOf('ipod') !== -1) {
-            return 'iOS';
-        } else {
-            return 'Unknown';
-        }
+      function isAndroid() {
+        var userAgent = navigator.userAgent.toLowerCase();
+        return userAgent.indexOf("android") > -1;
       }
 
-      function CallUnityFunction(unityInstance, platformName) {
+      function CallUnityFunction(unityInstance) {
         if (typeof unityInstance !== 'undefined') {
             // Check if the unityInstance is defined (Unity is loaded)
-
-            // Call the Unity function using Unity's SendMessage function
-            unityInstance.SendMessage('Project Manager', 'DetectThePlatForm', platformName);
+            unityInstance.SendMessage('Project Manager', 'OpenedInMobile');
         } else {
             console.error('Unity is not yet loaded.');
         }
@@ -139,9 +124,11 @@
             unityInstance.SetFullscreen(1);
           };
 
-          var platformName = getPlatformName();
-          console.log('Platform: ' + platformName);
-          CallUnityFunction(unityInstance, platformName);
+          if (isAndroid()) {
+            console.log("Running on an Android device");
+            CallUnityFunction(unityInstance);
+          }
+
         }).catch((message) => {
           alert(message);
         });
