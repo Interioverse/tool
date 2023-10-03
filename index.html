@@ -55,9 +55,21 @@
         updateBannerVisibility();
       }
 
-      function isAndroid() {
-        var userAgent = navigator.userAgent.toLowerCase();
-        return userAgent.indexOf("android") > -1;
+      function isAndroidoriOS() {
+        // var userAgent = navigator.userAgent.toLowerCase();
+        // return userAgent.indexOf("android") > -1;
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))
+        {
+          container.className = "unity-mobile";
+          config.devicePixelRatio = 1;
+          return true;
+        }
+        else
+        {
+          // canvas.style.width = "100%";
+          // canvas.style.height = "100%";
+          return false;
+        }
       }
 
       function CallUnityFunction(unityInstance) {
@@ -124,8 +136,8 @@
             unityInstance.SetFullscreen(1);
           };
 
-          if (isAndroid()) {
-            console.log("Running on an Android device");
+          if (isAndroidoriOS()) {
+            console.log("Running on an smart phone device");
             CallUnityFunction(unityInstance);
           }
 
