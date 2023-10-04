@@ -55,27 +55,30 @@
         updateBannerVisibility();
       }
 
-      function isAndroidoriOS() {
-        // var userAgent = navigator.userAgent.toLowerCase();
-        // return userAgent.indexOf("android") > -1;
-        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))
-        {
-          // container.className = "unity-mobile";
-          // config.devicePixelRatio = 1;
-          return true;
+      function CheckDevice() {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        // Windows Phone must come first because its UA also contains "Android"
+        if (/windows phone/i.test(userAgent)) {
+            return "Windows Phone";
         }
-        else
-        {
-          // canvas.style.width = "100%";
-          // canvas.style.height = "100%";
-          return false;
+
+        if (/android/i.test(userAgent)) {
+            return "Android";
         }
+
+        // iOS detection from: http://stackoverflow.com/a/9039885/177710
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            return "iOS";
+        }
+
+        return "unknown";
       }
 
-      function CallUnityFunction(unityInstance) {
+      function CallUnityFunction(unityInstance, platForm) {
         if (typeof unityInstance !== 'undefined') {
             // Check if the unityInstance is defined (Unity is loaded)
-            unityInstance.SendMessage('Project Manager', 'OpenedInMobile');
+            unityInstance.SendMessage('Project Manager', 'OpenedInMobile', platForm);
         } else {
             console.error('Unity is not yet loaded.');
         }
@@ -113,8 +116,7 @@
 
         // To lower canvas resolution on mobile devices to gain some
         // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
-
+        config.devicePixelRatio = 1;
         unityShowBanner('WebGL builds are not supported on mobile devices.');
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
@@ -124,7 +126,7 @@
       }
 
       loadingBar.style.display = "block";
-
+      var unityInstanceClone;
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
@@ -136,9 +138,22 @@
             unityInstance.SetFullscreen(1);
           };
 
-          if (isAndroidoriOS()) {
-            console.log("Running on an smart phone device");
-            CallUnityFunction(unityInstance);
+          var platForm = CheckDevice();
+
+          if(platForm == "Windows Phone"){
+            console.log("Running on an windows phone");
+            CallUnityFunction(unityInstance, platForm);
+          }
+          else if(platForm == "Android"){
+            console.log("Running on an Android phone");
+            CallUnityFunction(unityInstance, platForm);
+          }
+          else if(platForm == "iOS"){
+            console.log("Running on an iOS");
+            CallUnityFunction(unityInstance, platForm);
+          }
+          else{
+            console.log("Not running on smart device");
           }
 
         }).catch((message) => {
