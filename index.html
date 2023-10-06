@@ -33,6 +33,24 @@
         background-size: contain; /* Maintain aspect ratio */
       }
 
+      #fullscreen-button {
+        display: none; /* Initially hide the fullscreen button */
+        position: fixed;
+        top: 50%;
+        right: 1%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0); /* Half-transparent white background */
+        padding: 10px;
+        cursor: pointer;
+        width: 15px; /* Square dimensions */
+        height: 15px;
+        background-image: url('TemplateData/full-screen.png'); /* Icon URL */
+        background-size: cover;
+        background-position: center;
+        border: none; /* Remove the border */
+        outline: none; /* Remove the default focus outline */
+      }
+
     </style>
   </head>
   <body>
@@ -50,6 +68,7 @@
         <div id="unity-fullscreen-button"></div>
         <div id="unity-build-title">Interioverse Tool</div>
       </div>
+      <div id="fullscreen-button"></div>
     </div>
     <script>
       var container = document.querySelector("#unity-container");
@@ -57,6 +76,7 @@
       var loadingBar = document.querySelector("#unity-loading-bar");
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      var fullscreenForMobileButton = document.querySelector("#fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
 
       // Define the resize function
@@ -90,8 +110,14 @@
         }
       }
 
-      if (fullscreenButton) {
-        fullscreenButton.addEventListener("click", toggleFullscreen);
+      // Check if the device is a mobile device
+      function isMobileDevice() {
+        return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      }
+
+      if (fullscreenForMobileButton) {
+        fullscreenForMobileButton.style.display = isMobileDevice() ? "block" : "none";
+        fullscreenForMobileButton.addEventListener("click", toggleFullscreen);
       }
 
       // Shows a temporary message banner/ribbon for a few seconds, or
