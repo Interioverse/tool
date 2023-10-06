@@ -79,21 +79,19 @@
       // Call the resize function whenever the window is resized
       window.addEventListener("resize", resize);
 
-      function isMobileDevice() {
-        return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      }
-
       // Toggle fullscreen mode on mobile devices
       function toggleFullscreen() {
-        if (isMobileDevice()) {
-          if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
-          } else {
-            if (document.exitFullscreen) {
-              document.exitFullscreen();
-            }
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
           }
         }
+      }
+
+      if (fullscreenButton) {
+        fullscreenButton.addEventListener("click", toggleFullscreen);
       }
 
       // Shows a temporary message banner/ribbon for a few seconds, or
