@@ -59,27 +59,16 @@
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
 
-            // Define the resize function
-            function resize() {
+      // Define the resize function
+      function resize() {
         var windowSize = {
           width: window.innerWidth || document.body.clientWidth,
           height: window.innerHeight || document.body.clientHeight
         };
 
-        var gameSize = {
-          width: 1480, // Update to your game's initial resolution
-          height: 680
-        };
-
-        var aspectRatio = gameSize.width / gameSize.height;
-
-        if (windowSize.width / windowSize.height < aspectRatio) {
-          canvas.style.width = windowSize.width + "px";
-          canvas.style.height = windowSize.width / aspectRatio + "px";
-        } else {
-          canvas.style.width = windowSize.height * aspectRatio + "px";
-          canvas.style.height = windowSize.height + "px";
-        }
+        // Set canvas size to fill the screen without any gaps
+        canvas.style.width = windowSize.width + "px";
+        canvas.style.height = windowSize.height + "px";
       }
 
       // Call the resize function when the window is loaded
